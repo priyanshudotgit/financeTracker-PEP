@@ -1,0 +1,42 @@
+# --- System & IDE ---
+.DS_Store
+.vscode/
+.idea/
+*.log
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# --- Dependencies ---
+**/node_modules/
+**/jspm_packages/
+
+# --- Firebase & Backend ---
+.firebase/
+firebase-debug.log*
+.firebaserc
+.runtimeconfig.json
+**/functions/node_modules/
+
+# --- Frontend Build Output ---
+frontend/dist/
+frontend/build/
+.cache/
+.parcel-cache/
+.vite/
+
+# --- Secrets & Environment Variables (CRITICAL) ---
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.json
+!package.json
+!manifest.json
+!firebase.json
+
+# --- Testing ---
+**/coverage/
+.nyc_output/
