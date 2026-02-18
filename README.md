@@ -6,6 +6,11 @@ This application allows users to manage income and expenses efficiently through 
 
 ---
 
+## 🌐 Live Preview :
+- [Live Demo](https://finance-tracker-pep.vercel.app)
+
+---
+
 ## 🚀 Project Overview
 
 The Personal Finance Tracker helps users:
@@ -73,12 +78,6 @@ The project follows the **MVC pattern** for better scalability, maintainability,
 - **Effective use of React Hooks**
 - **Structured MVC architecture**
 - **Good user experience**
-
----
-
-## 🌐 Live Preview :
-- [Live Demo](https://finance-tracker-pep.vercel.app)
-
 
 ---
 
