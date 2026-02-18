@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { useTransactions } from '../../controllers/transactionController.js';
 import { X } from 'lucide-react';
 
-const AddTransactionForm = ({ isOpen, onClose }) => {
-    const { addTransaction } = useTransactions();
-    const [formData, setFormData] = useState({
+const AddTransactionForm = ({ isOpen, onClose, initialData }) => {
+    const { addTransaction, updateTransaction } = useTransactions();
+    const [formData, setFormData] = useState(initialData || {
         title: '',
         amount: '',
         type: 'income',
@@ -14,8 +14,12 @@ const AddTransactionForm = ({ isOpen, onClose }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await addTransaction(formData);
-        setFormData({ ...formData, title: '', amount: '' });
+        if(initialData?.id){
+            await updateTransaction(initialData.id, formData);
+        }
+        else{
+            await addTransaction(formData);
+        }
         onClose();
     };
 
@@ -25,7 +29,7 @@ const AddTransactionForm = ({ isOpen, onClose }) => {
         <div className="fixed inset-0 bg-slate-900/80 dark:bg-slate-950/80 backdrop-blur-sm flex items-center justify-center z-50 p-4">
         <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 w-full max-w-md rounded-2xl shadow-2xl">
             <div className="flex justify-between items-center p-6 border-b border-slate-200 dark:border-slate-800">
-            <h3 className="text-xl font-bold text-slate-900 dark:text-white">Add Transaction</h3>
+            <h3 className="text-xl font-bold text-slate-900 dark:text-white">{initialData ? 'Edit' : 'Add'} Transaction</h3>
             <button onClick={onClose} className="text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">
                 <X size={24} />
             </button>

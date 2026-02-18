@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTransactions } from '../../controllers/transactionController.js';
-import { Trash2, Coffee, ShoppingBag, Home, Zap, Heart, MoreHorizontal, BadgeIndianRupee } from 'lucide-react';
+import { Trash2, Coffee, ShoppingBag, Home, Zap, Heart, MoreHorizontal, BadgeIndianRupee, Edit2 } from 'lucide-react';
 
 // Icon Map for Categories
 const categoryIcons = {
@@ -13,14 +13,14 @@ const categoryIcons = {
     General: <MoreHorizontal className="text-slate-400" />,
 };
 
-const TransactionList = () => {
-    const { transactions, deleteTransaction } = useTransactions();
+const TransactionList = ({transactions, onEdit}) => {
+    const { deleteTransaction } = useTransactions();
 
     if (transactions.length === 0) {
         return (
-        <div className="text-center py-20 bg-slate-200 dark:bg-slate-900/50 rounded-3xl border border-dashed border-slate-300 dark:border-slate-800">
-            <p className="text-slate-600 dark:text-slate-500">No transactions found. Start by adding one!</p>
-        </div>
+            <div className="text-center py-20 bg-slate-50 dark:bg-slate-900/50 rounded-3xl border border-dashed border-slate-200 dark:border-slate-800">
+                <p className="text-slate-500">No transactions match your search...</p>
+            </div>
         );
     }
 
@@ -45,8 +45,12 @@ const TransactionList = () => {
 
             <div className="flex items-center gap-6">
                 <span className={`font-bold text-lg ${t.type === 'income' ? 'text-emerald-500' : 'text-rose-500'}`}>
-                {t.type === 'income' ? '+' : '-'}${Number(t.amount).toLocaleString()}
+                {t.type === 'income' ? '+' : '-'}₹{Number(t.amount).toLocaleString()}
                 </span>
+
+                <button onClick={() => onEdit(t)} className="opacity-0 group-hover:opacity-100 p-2 text-slate-400 dark:text-slate-500 hover:text-emerald-500 hover:bg-emerald-500/10 rounded-lg transition-all">
+                <Edit2 size={18} />
+                </button>
                 
                 {/* hidden delete button */}
                 <button 

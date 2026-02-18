@@ -7,7 +7,8 @@ import {
     onSnapshot, 
     deleteDoc, 
     doc, 
-    orderBy 
+    orderBy,
+    updateDoc
 } from 'firebase/firestore';
 import { db } from '../config/firebase.js';
 import { useAuthContext } from '../context/AuthContext';
@@ -56,5 +57,14 @@ export const useTransactions = () => {
         }
     };
 
-    return { transactions, addTransaction, deleteTransaction };
+    const updateTransaction = async (id, updatedData) => {
+        try {
+            const docRef = doc(db, "transactions", id);
+            await updateDoc(docRef, updatedData);
+        } catch (err) {
+            console.error("Error updating:", err);
+        }
+    };
+
+    return { transactions, addTransaction, deleteTransaction, updateTransaction };
 };

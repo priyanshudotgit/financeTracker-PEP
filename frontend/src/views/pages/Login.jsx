@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { LogIn, Mail, Lock } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuthContext } from '../../context/AuthContext';
 
 const Login = () => {
@@ -73,6 +73,9 @@ const Login = () => {
                 Sign In
             </button>
             </form>
+            <p className="text-center mt-6 text-slate-600 dark:text-slate-400">
+                New to FinanceX? <Link to="/signup" className="text-emerald-500 hover:text-emerald-600 font-semibold">Sign Up</Link>
+            </p>
         </div>
         </div>
     );

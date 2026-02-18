@@ -3,9 +3,11 @@ import {
     createUserWithEmailAndPassword, 
     signInWithEmailAndPassword, 
     signOut, 
-    onAuthStateChanged 
+    onAuthStateChanged,
+    updateProfile
 } from 'firebase/auth';
-import { auth } from '../config/firebase.js';
+import { doc, setDoc } from 'firebase/firestore';
+import { auth, db } from '../config/firebase.js';
 
 export const useAuth = () => {
     const [user, setUser] = useState(null);
@@ -19,8 +21,26 @@ export const useAuth = () => {
         return () => unsubscribe();
     }, []);
 
-    const signUp = (email, password) => {
-        return createUserWithEmailAndPassword(auth, email, password);
+    const signUp = async (displayName, email, password) => {
+        try {
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const newUser = userCredential.user;
+
+            await updateProfile(newUser, {
+                displayName: displayName
+            });
+
+            await setDoc(doc(db, "users", newUser.uid), {
+                uid: newUser.uid,
+                displayName: displayName,
+                email: email,
+                createdAt: new Date()
+            });
+
+            return newUser;
+        } catch (error) {
+            throw error; 
+        }
     };
 
     const login = (email, password) => {
