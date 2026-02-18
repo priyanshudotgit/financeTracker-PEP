@@ -14,7 +14,7 @@ const categoryIcons = {
 };
 
 const TransactionList = ({transactions, onEdit}) => {
-    const { deleteTransaction } = useTransactions();
+    const { deleteTransaction, updateTransaction } = useTransactions();
 
     if (transactions.length === 0) {
         return (
