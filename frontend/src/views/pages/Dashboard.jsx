@@ -4,7 +4,7 @@ import React, {useState} from 'react';
 // components
 import AddTransactionForm from '../components/AddTransactionForm.jsx';
 import TransactionList from '../components/TransactionList.jsx';
-import SpendingChart from '../components/SpendingChart.jsx';
+import { AnalyticalPieChart, AnalyticalBarChart } from '../components/SpendingChart.jsx';
 import SummaryCard from '../components/SummaryCard.jsx';
 import Navbar from '../components/Navbar.jsx';
 
@@ -39,7 +39,7 @@ const Dashboard = () => {
     return (
         <>
         <Navbar />
-        <div className="min-h-screen bg-slate-100 text-slate-900 p-8 dark:bg-slate-900 dark:text-white">
+        <div className="min-h-screen bg-slate-100 text-slate-900 p-8 dark:bg-slate-900 dark:text-white pt-20">
 
         {/* Hero Section */}
         <div className="min-h-screen bg-slate-100 text-slate-900 p-4 md:p-8 dark:bg-slate-900 dark:text-white">
@@ -120,7 +120,10 @@ const Dashboard = () => {
                         <div className="space-y-6">
                             <h2 className="text-xl font-bold dark:text-white">Financial Analytics</h2>
                             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-3xl shadow-sm">
-                                <SpendingChart transactions={filteredTransactions} />
+                                <AnalyticalPieChart transactions={filteredTransactions} />
+                            </div>
+                            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-3xl shadow-sm">
+                                <AnalyticalBarChart transactions={filteredTransactions} />
                             </div>
                         </div>
                     </div>

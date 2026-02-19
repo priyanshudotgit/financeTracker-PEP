@@ -7,8 +7,7 @@ import SignUp from './views/pages/SignUp'
 import Landing from './views/pages/Landing'
 import Dashboard from './views/pages/Dashboard';
 import Profile from './views/pages/Profile';
-import ProtectedRoute from './views/layouts/ProtectedRoute'
-import Navbar from './views/components/Navbar';
+import ProtectedRoute from './views/layouts/ProtectedRoute';
 
 // context & providers
 import { AuthProvider } from './context/AuthContext';

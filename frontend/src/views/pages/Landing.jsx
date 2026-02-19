@@ -2,13 +2,18 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, PieChart, Shield, Zap } from 'lucide-react';
 import FeatureCard from '../components/FeatureCard';
+import logo from '../../assets/finance64.png';
 
 const Landing = () => {
     return (
         <div className="min-h-screen bg-white dark:bg-slate-950 transition-colors">
         <nav className="flex justify-between items-center p-6 max-w-7xl mx-auto">
-            <h1 className="text-2xl font-bold text-emerald-500">FinanceX</h1>
-            <Link to="/login" className="text-slate-600 dark:text-slate-300 font-medium hover:text-emerald-500">Login</Link>
+            <img src={logo} alt="logo" draggable="false" />
+            {/* <h1 className="text-2xl font-bold text-emerald-500 font-s">FinanceX</h1> */}
+            <div className='flex gap-5'>  
+                <Link to="/login" className="bg-emerald-500 hover:bg-emerald-600 text-slate-950 px-6 py-1 rounded-xl font-bold text-lg inline-flex items-center gap-2 transition-all hover:scale-105 shadow-xl shadow-emerald-500/20">Login</Link>
+                <Link to="/signup" className="bg-emerald-500 hover:bg-emerald-600 text-slate-950 px-6 py-1 rounded-xl font-bold text-lg inline-flex items-center gap-2 transition-all hover:scale-105 shadow-xl shadow-emerald-500/20">Signup</Link>
+            </div>
         </nav>
 
         <main className="max-w-7xl mx-auto px-6 pt-20 pb-16 text-center">

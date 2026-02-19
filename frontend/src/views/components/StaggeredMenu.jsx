@@ -1,6 +1,7 @@
 import React, { useCallback, useLayoutEffect, useRef, useState, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { Link } from 'react-router-dom';
+import logo from '../../assets/finance64.png'
 
 export const StaggeredMenu = ({
         position = 'right',
@@ -403,15 +404,14 @@ export const StaggeredMenu = ({
             aria-label="Main navigation header"
             >
             <div className="sm-logo flex items-center select-none pointer-events-auto" aria-label="Logo">
-                <h1>FinX</h1>
-                {/* <img
-                src={logoUrl || '/src/assets/logos/reactbits-gh-white.svg'}
+                <img
+                src={logo || '/src/assets/logos/reactbits-gh-white.svg'}
                 alt="Logo"
-                className="sm-logo-img block h-8 w-auto object-contain"
+                className="img block object-contain"
                 draggable={false}
-                width={110}
-                height={24}
-                /> */}
+                width={64}
+                height={64}
+                />
             </div>
 
             <button
@@ -534,7 +534,7 @@ export const StaggeredMenu = ({
 
         <style>{`
     .sm-scope .staggered-menu-wrapper { position: relative; width: 100%; height: 100%; z-index: 40; pointer-events: none; }
-    .sm-scope .staggered-menu-header { position: absolute; top: 0; left: 0; width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 2em; background: transparent; pointer-events: none; z-index: 20; }
+    .sm-scope .staggered-menu-header { position: absolute; top: 0; left: 0; width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 0.8em 2em 2em 2em; background: transparent; pointer-events: none; z-index: 20; }
     .sm-scope .staggered-menu-header > * { pointer-events: auto; }
     .sm-scope .sm-logo { display: flex; align-items: center; user-select: none; }
     .sm-scope .sm-logo-img { display: block; height: 32px; width: auto; object-fit: contain; }

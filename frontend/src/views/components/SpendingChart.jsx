@@ -1,55 +1,80 @@
-import React from 'react';
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
-import { useTheme } from '../../context/ThemeContext.jsx';
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend, BarChart, Bar, XAxis, YAxis, CartesianGrid  } from 'recharts';
 
 const COLORS = ['#10B981', '#3B82F6', '#F59E0B', '#8B5CF6', '#FB7185', '#64748B'];
 
-const SpendingChart = ({ transactions }) => {
-    const { theme } = useTheme();
-    
-    // filter expenses by category
-    const chartData = transactions
+export const AnalyticalPieChart = ({ transactions, theme }) => {
+    const data = transactions
         .filter(t => t.type === 'expense')
         .reduce((acc, curr) => {
-        const existing = acc.find(item => item.name === curr.category);
-        if (existing) {
-            existing.value += Number(curr.amount);
-        } else {
-            acc.push({ name: curr.category, value: Number(curr.amount) });
-        }
-        return acc;
+            const existing = acc.find(item => item.name === curr.category);
+            if (existing) {
+                existing.value += Number(curr.amount);
+            } else {
+                acc.push({ name: curr.category, value: Number(curr.amount) });
+            }
+            return acc;
         }, []);
 
-    const tooltipBg = theme === 'dark' ? '#0f172a' : '#f1f5f9';
-    const tooltipBorder = theme === 'dark' ? '#1e293b' : '#cbd5e1';
-    const tooltipText = theme === 'dark' ? '#f8fafc' : '#1e293b';
+    const style = {
+        bg: theme === 'dark' ? '#0f172a' : '#ffffff',
+        border: theme === 'dark' ? '#1e293b' : '#e2e8f0'
+    };
 
     return (
-        <div className="w-full h-[300px]">
-        <ResponsiveContainer width="100%" height="100%">
-            <PieChart>
-            <Pie
-                data={chartData}
-                cx="50%"
-                cy="50%"
-                innerRadius={60}
-                outerRadius={80}
-                paddingAngle={5}
-                dataKey="value"
-            >
-                {chartData.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} stroke="none" />
-                ))}
-            </Pie>
-            <Tooltip 
-                contentStyle={{ backgroundColor: tooltipBg, border: `1px solid ${tooltipBorder}`, borderRadius: '12px' }}
-                itemStyle={{ color: tooltipText }}
-            />
-            <Legend iconType="circle" />
-            </PieChart>
-        </ResponsiveContainer>
+        <div className="h-[300px] w-full">
+            <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                    <Pie
+                        data={data}
+                        innerRadius={60}
+                        outerRadius={80}
+                        paddingAngle={5}
+                        dataKey="value"
+                        cx="50%"
+                        cy="50%"
+                    >
+                        {data.map((_, index) => (
+                            <Cell key={index} fill={COLORS[index % COLORS.length]} stroke="none" />
+                        ))}
+                    </Pie>
+                    <Tooltip 
+                        contentStyle={{ backgroundColor: style.bg, border: `1px solid ${style.border}`, borderRadius: '12px' }}
+                    />
+                    <Legend iconType="circle" verticalAlign="bottom" />
+                </PieChart>
+            </ResponsiveContainer>
         </div>
     );
 };
 
-export default SpendingChart;
+export const AnalyticalBarChart = ({ transactions, theme }) => {
+    const income = transactions.filter(t => t.type === 'income').reduce((a, b) => a + Number(b.amount), 0);
+    const expense = transactions.filter(t => t.type === 'expense').reduce((a, b) => a + Number(b.amount), 0);
+
+    const data = [{ name: 'Totals', Income: income, Expenses: expense }];
+
+    const style = {
+        bg: theme === 'dark' ? '#0f172a' : '#ffffff',
+        border: theme === 'dark' ? '#1e293b' : '#e2e8f0',
+        text: theme === 'dark' ? '#94a3b8' : '#64748b'
+    };
+
+    return (
+        <div className="h-[300px] w-full">
+            <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={data} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={style.border} />
+                    <XAxis dataKey="name" hide />
+                    <YAxis tick={{ fill: style.text, fontSize: 12 }} axisLine={false} tickLine={false} />
+                    <Tooltip 
+                        cursor={{ fill: 'transparent' }}
+                        contentStyle={{ backgroundColor: style.bg, border: `1px solid ${style.border}`, borderRadius: '12px' }}
+                    />
+                    <Legend verticalAlign="top" align="right" height={36} />
+                    <Bar dataKey="Income" fill="#10B981" radius={[6, 6, 0, 0]} barSize={50} />
+                    <Bar dataKey="Expenses" fill="#F43F5E" radius={[6, 6, 0, 0]} barSize={50} />
+                </BarChart>
+            </ResponsiveContainer>
+        </div>
+    );
+};
