@@ -11,7 +11,7 @@ import Navbar from '../components/Navbar.jsx';
 // misc
 import { useAuthContext } from '../../context/AuthContext';
 import { useTransactions } from '../../controllers/transactionController.js';
-import { ArrowUpCircle, ArrowDownCircle, Wallet, Plus, Search, Filter } from 'lucide-react';
+import { ArrowUpCircle, ArrowDownCircle, Wallet, Plus, Search, Filter, FlameIcon, AtomIcon, WavesIcon, GithubIcon } from 'lucide-react';
 
 const Dashboard = () => {
     const { user, logout } = useAuthContext();
@@ -39,7 +39,7 @@ const Dashboard = () => {
     return (
         <>
         <Navbar />
-        <div className="min-h-screen bg-slate-100 text-slate-900 p-8 dark:bg-slate-900 dark:text-white pt-20">
+        <div className="min-h-screen bg-slate-100 text-slate-900 p-8 dark:bg-slate-900 dark:text-white pt-20 pb-2">
 
         {/* Hero Section */}
         <div className="min-h-screen bg-slate-100 text-slate-900 p-4 md:p-8 dark:bg-slate-900 dark:text-white">
@@ -131,6 +131,34 @@ const Dashboard = () => {
             {/* Form Model */}
             <AddTransactionForm isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
         </div>
+
+        {/* Footer */}
+        <footer className="mt-5 border-t border-slate-700 dark:border-white pt-2 text-center">
+        <h6 className="text-sm font-medium text-slate-600">
+            Developed By yours truly: 
+            <a href="https://github.com/priyanshudotgit" className="text-indigo-600 hover:text-indigo-500 transition-colors mt-3 flex flex-row justify-center items-center">
+            <GithubIcon />
+            @priyanshudotgit
+            </a>
+        </h6>
+        
+        <div className="mt-4 flex flex-col items-center gap-2">
+            <p className="text-xs uppercase text-slate-900 font-semibold">
+            Tech Stack
+            </p>
+            <div className="flex gap-4 text-slate-800">
+            <span className="text-xs hover:text-blue-500">
+                <AtomIcon className='text-blue-500' />
+            </span>
+            <span className="text-xs hover:text-orange-500">
+                <FlameIcon className="text-orange-500" />
+            </span>
+            <span className="text-xs hover:text-blue-300">
+                <WavesIcon className='text-blue-300' />
+            </span>
+            </div>
+        </div>
+        </footer>
         </div>
         </>
     );
